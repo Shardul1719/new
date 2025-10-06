@@ -531,9 +531,9 @@
 // export default About;
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ReactLenis from "lenis/react";
-import { motion, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import {
   Shield,
@@ -542,9 +542,115 @@ import {
   Users,
 } from "lucide-react";
 
+const Character = ({ char, index, centerIndex, scrollYProgress, isMobile }) => {
+  const isSpace = char === " ";
+  const distanceFromCenter = index - centerIndex;
+
+  const x = useTransform(scrollYProgress, [0, 0.6], [
+    distanceFromCenter * (isMobile ? 60 : 160),
+    0,
+  ]);
+  const rotateX = useTransform(scrollYProgress, [0, 0.6], [
+    distanceFromCenter * (isMobile ? 20 : 60),
+    0,
+  ]);
+  const y = useTransform(scrollYProgress, [0, 0.6], [
+    Math.abs(distanceFromCenter) * (isMobile ? 10 : 30),
+    0,
+  ]);
+
+  return (
+    <motion.span
+      className={`inline-block ${isSpace ? "w-3" : ""}`}
+      style={{
+        x,
+        rotateX,
+        y,
+        display: "inline-block",
+        backfaceVisibility: "hidden",
+        willChange: "transform",
+      }}
+    >
+      {char}
+    </motion.span>
+  );
+};
+
+const CardAnimated = ({ index, total, scrollYProgressCards, children, isMobile }) => {
+  const centerIndex = Math.floor(total / 2);
+  const distance = index - centerIndex;
+
+  const x = useTransform(scrollYProgressCards, [0, 0.6], [
+    distance * (isMobile ? 40 : 120),
+    0,
+  ]);
+  const rotate = useTransform(scrollYProgressCards, [0, 0.6], [
+    distance * (isMobile ? 6 : 14),
+    0,
+  ]);
+  const y = useTransform(scrollYProgressCards, [0, 0.6], [
+    Math.abs(distance) * (isMobile ? 8 : 20),
+    0,
+  ]);
+  const scale = useTransform(scrollYProgressCards, [0, 0.6], [0.9, 1]);
+
+  return (
+    <motion.div
+      style={{
+        x,
+        rotate,
+        y,
+        scale,
+        transformOrigin: "center",
+        backfaceVisibility: "hidden",
+        willChange: "transform",
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
 const About = () => {
   const isMobile =
     typeof window !== "undefined" && window.innerWidth < 768;
+
+  const [playedOnce, setPlayedOnce] = useState(false);
+
+  const headingRef = useRef(null);
+  const cardsRef = useRef(null);
+  const bottomRef = useRef(null);
+
+  const headingInView = useInView(headingRef, { amount: 0.3 });
+  const cardsInView = useInView(cardsRef, { amount: 0.3 });
+  const bottomInView = useInView(bottomRef, { amount: 0.3 });
+
+  const { scrollYProgress: headingProgressRaw } = useScroll({
+    target: headingRef,
+    offset: ["start 90%", "end 10%"],
+  });
+  const { scrollYProgress: cardsProgressRaw } = useScroll({
+    target: cardsRef,
+    offset: ["start 90%", "end 10%"],
+  });
+
+  // ✅ Lock animation progress once played
+  const [headingProgress, setHeadingProgress] = useState(headingProgressRaw);
+  const [cardsProgress, setCardsProgress] = useState(cardsProgressRaw);
+
+  useEffect(() => {
+    if (headingInView && !playedOnce) {
+      setPlayedOnce(true);
+    }
+  }, [headingInView, playedOnce]);
+
+  useEffect(() => {
+    if (playedOnce) {
+      // Freeze scroll progress at 1 (end state)
+      setHeadingProgress({ current: 1 });
+      setCardsProgress({ current: 1 });
+    }
+  }, [playedOnce]);
 
   const features = [
     {
@@ -567,47 +673,48 @@ const About = () => {
     },
   ];
 
-  // ✅ Refs for one-time animations
-  const headingRef = useRef(null);
-  const cardsRef = useRef(null);
-  const bottomRef = useRef(null);
-
-  const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
-  const cardsInView = useInView(cardsRef, { once: true, amount: 0.3 });
-  const bottomInView = useInView(bottomRef, { once: true, amount: 0.3 });
-
   const headingText = "What is a Debt Management Plan (DMP)?";
+  const characters = headingText.split("");
+  const centerIndex = Math.floor(characters.length / 2);
 
   return (
     <ReactLenis root>
       <section id="services" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           {/* Animated Heading */}
-          <div
-            ref={headingRef}
-            className="text-center mb-16 space-y-4"
-            style={{
-              perspective: isMobile ? "400px" : "900px",
-            }}
-          >
-            <motion.h2
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight"
-              initial={{ opacity: 0, y: 40, rotateX: 10 }}
-              animate={
-                headingInView
-                  ? { opacity: 1, y: 0, rotateX: 0 }
-                  : { opacity: 0, y: 40, rotateX: 10 }
-              }
-              transition={{ duration: 0.8, ease: "easeOut" }}
+          <div ref={headingRef} className="text-center mb-16 space-y-4">
+            <div
+              className="mx-auto max-w-5xl"
+              style={{
+                perspective: isMobile ? "400px" : "900px",
+              }}
             >
-              {headingText}
-            </motion.h2>
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                <span className="inline-block">
+                  {!isMobile
+                    ? characters.map((char, idx) => (
+                        <Character
+                          key={idx}
+                          char={char}
+                          index={idx}
+                          centerIndex={centerIndex}
+                          scrollYProgress={
+                            playedOnce ? { current: 1 } : headingProgressRaw
+                          }
+                          isMobile={isMobile}
+                        />
+                      ))
+                    : headingText}
+                </span>
+              </h2>
+            </div>
 
             <motion.p
               className="text-lg text-muted-foreground max-w-3xl mx-auto mt-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={headingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              initial={{ opacity: 0, y: 30, rotateX: 10 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               A Debt Management Plan (DMP) is a personalized solution to help
               you regain control of your finances and achieve debt-free living.
@@ -620,19 +727,14 @@ const About = () => {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
           >
             {features.map((feature, index) => (
-              <motion.div
+              <CardAnimated
                 key={index}
-                initial={{ opacity: 0, y: 50, rotateX: 10 }}
-                animate={
-                  cardsInView
-                    ? { opacity: 1, y: 0, rotateX: 0 }
-                    : { opacity: 0, y: 50, rotateX: 10 }
+                index={index}
+                total={features.length}
+                scrollYProgressCards={
+                  playedOnce ? { current: 1 } : cardsProgressRaw
                 }
-                transition={{
-                  duration: 0.6,
-                  ease: "easeOut",
-                  delay: index * 0.2,
-                }}
+                isMobile={isMobile}
               >
                 <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 border-border h-full">
                   <div className="flex flex-col items-center text-center space-y-4">
@@ -660,21 +762,18 @@ const About = () => {
                     </p>
                   </div>
                 </Card>
-              </motion.div>
+              </CardAnimated>
             ))}
           </div>
 
-          {/* Bottom DID YOU KNOW card */}
+          {/* Bottom "Did You Know" card */}
           <div ref={bottomRef} className="mt-12">
             <motion.div
               className="w-full"
               initial={{ opacity: 0, y: 100, rotateX: 15 }}
-              animate={
-                bottomInView
-                  ? { opacity: 1, y: 0, rotateX: 0 }
-                  : { opacity: 0, y: 100, rotateX: 15 }
-              }
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.3 }}
             >
               <Card className="bg-accent border-l-4 border-l-primary p-8 shadow-lg rounded-2xl">
                 <div className="flex items-start space-x-4">
@@ -696,7 +795,6 @@ const About = () => {
                     </p>
                   </div>
                 </div>
-
                 <p className="text-lg text-foreground mt-6 text-center font-bold">
                   Watch his story:{" "}
                   <a
