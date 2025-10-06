@@ -1,3 +1,88 @@
+// // import { useState } from "react";
+// // import { Menu, X, Phone } from "lucide-react";
+// // import { Button } from "@/components/ui/button";
+
+// // const Header = () => {
+// //   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+// //   const scrollToSection = (sectionId) => {
+// //     const element = document.getElementById(sectionId);
+// //     if (element) {
+// //       element.scrollIntoView({ behavior: 'smooth' });
+// //       setIsMenuOpen(false);
+// //     }
+// //   };
+
+// //   return (
+// //     // <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
+// //     <header
+// //         className="fixed top-0 left-0 right-0 z-50 bg-background/95 md:backdrop-blur-sm border-b border-border"
+// //         style={{ transform: "translateZ(0)", willChange: "transform" }}
+// //     >
+
+// //       <nav className="container mx-auto px-4 py-4">
+// //         <div className="flex items-center justify-between">
+// //           <div className="flex items-center space-x-2">
+// //             <div className="text-2xl font-bold text-primary">SingleDebt</div>
+// //             <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">Mumbai</span>
+// //           </div>
+
+// //           {/* Desktop Navigation */}
+// //           <div className="hidden md:flex items-center space-x-8">
+// //             <button onClick={() => scrollToSection('services')} className="text-foreground hover:text-primary transition-colors">
+// //               Services
+// //             </button>
+// //             <button onClick={() => scrollToSection('how-it-works')} className="text-foreground hover:text-primary transition-colors">
+// //               How It Works
+// //             </button>
+// //             <button onClick={() => scrollToSection('testimonials')} className="text-foreground hover:text-primary transition-colors">
+// //               Testimonials
+// //             </button>
+// //             <button onClick={() => scrollToSection('contact')} className="text-foreground hover:text-primary transition-colors">
+// //               Contact
+// //             </button>
+// //             <Button onClick={() => scrollToSection('contact')} size="sm" className="bg-primary hover:bg-primary/90">
+// //               <Phone className="w-4 h-4 mr-2" />
+// //               Get Free Consultation
+// //             </Button>
+// //           </div>
+
+// //           {/* Mobile Menu Button */}
+// //           <button
+// //             onClick={() => setIsMenuOpen(!isMenuOpen)}
+// //             className="md:hidden text-foreground"
+// //           >
+// //             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+// //           </button>
+// //         </div>
+
+// //         {/* Mobile Navigation */}
+// //         {isMenuOpen && (
+// //           <div className="md:hidden mt-4 pb-4 space-y-4 animate-fade-in">
+// //             <button onClick={() => scrollToSection('services')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+// //               Services
+// //             </button>
+// //             <button onClick={() => scrollToSection('how-it-works')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+// //               How It Works
+// //             </button>
+// //             <button onClick={() => scrollToSection('testimonials')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+// //               Testimonials
+// //             </button>
+// //             <button onClick={() => scrollToSection('contact')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+// //               Contact
+// //             </button>
+// //             <Button onClick={() => scrollToSection('contact')} size="sm" className="w-full bg-primary hover:bg-primary/90">
+// //               <Phone className="w-4 h-4 mr-2" />
+// //               Get Free Consultation
+// //             </Button>
+// //           </div>
+// //         )}
+// //       </nav>
+// //     </header>
+// //   );
+// // };
+
+// // export default Header;
 // import { useState } from "react";
 // import { Menu, X, Phone } from "lucide-react";
 // import { Button } from "@/components/ui/button";
@@ -8,40 +93,61 @@
 //   const scrollToSection = (sectionId) => {
 //     const element = document.getElementById(sectionId);
 //     if (element) {
-//       element.scrollIntoView({ behavior: 'smooth' });
+//       element.scrollIntoView({ behavior: "smooth" });
 //       setIsMenuOpen(false);
 //     }
 //   };
 
 //   return (
-//     // <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
 //     <header
-//         className="fixed top-0 left-0 right-0 z-50 bg-background/95 md:backdrop-blur-sm border-b border-border"
-//         style={{ transform: "translateZ(0)", willChange: "transform" }}
+//       className="fixed top-0 left-0 w-full z-50 bg-background/95 md:backdrop-blur-sm border-b border-border"
+//       style={{
+//         transform: "translateZ(0)",
+//         willChange: "transform",
+//         overflowX: "hidden",
+//       }}
 //     >
-
-//       <nav className="container mx-auto px-4 py-4">
-//         <div className="flex items-center justify-between">
+//       <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+//         <div className="flex items-center justify-between w-full">
+//           {/* Logo Section */}
 //           <div className="flex items-center space-x-2">
 //             <div className="text-2xl font-bold text-primary">SingleDebt</div>
-//             <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">Mumbai</span>
+//             <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
+//               Mumbai
+//             </span>
 //           </div>
 
 //           {/* Desktop Navigation */}
 //           <div className="hidden md:flex items-center space-x-8">
-//             <button onClick={() => scrollToSection('services')} className="text-foreground hover:text-primary transition-colors">
+//             <button
+//               onClick={() => scrollToSection("services")}
+//               className="text-foreground hover:text-primary transition-colors"
+//             >
 //               Services
 //             </button>
-//             <button onClick={() => scrollToSection('how-it-works')} className="text-foreground hover:text-primary transition-colors">
+//             <button
+//               onClick={() => scrollToSection("how-it-works")}
+//               className="text-foreground hover:text-primary transition-colors"
+//             >
 //               How It Works
 //             </button>
-//             <button onClick={() => scrollToSection('testimonials')} className="text-foreground hover:text-primary transition-colors">
+//             <button
+//               onClick={() => scrollToSection("testimonials")}
+//               className="text-foreground hover:text-primary transition-colors"
+//             >
 //               Testimonials
 //             </button>
-//             <button onClick={() => scrollToSection('contact')} className="text-foreground hover:text-primary transition-colors">
+//             <button
+//               onClick={() => scrollToSection("contact")}
+//               className="text-foreground hover:text-primary transition-colors"
+//             >
 //               Contact
 //             </button>
-//             <Button onClick={() => scrollToSection('contact')} size="sm" className="bg-primary hover:bg-primary/90">
+//             <Button
+//               onClick={() => scrollToSection("contact")}
+//               size="sm"
+//               className="bg-primary hover:bg-primary/90"
+//             >
 //               <Phone className="w-4 h-4 mr-2" />
 //               Get Free Consultation
 //             </Button>
@@ -50,28 +156,45 @@
 //           {/* Mobile Menu Button */}
 //           <button
 //             onClick={() => setIsMenuOpen(!isMenuOpen)}
-//             className="md:hidden text-foreground"
+//             className="md:hidden text-foreground p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
+//             aria-label="Toggle Menu"
 //           >
-//             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+//             {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
 //           </button>
 //         </div>
 
 //         {/* Mobile Navigation */}
 //         {isMenuOpen && (
 //           <div className="md:hidden mt-4 pb-4 space-y-4 animate-fade-in">
-//             <button onClick={() => scrollToSection('services')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+//             <button
+//               onClick={() => scrollToSection("services")}
+//               className="block text-foreground hover:text-primary transition-colors w-full text-left"
+//             >
 //               Services
 //             </button>
-//             <button onClick={() => scrollToSection('how-it-works')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+//             <button
+//               onClick={() => scrollToSection("how-it-works")}
+//               className="block text-foreground hover:text-primary transition-colors w-full text-left"
+//             >
 //               How It Works
 //             </button>
-//             <button onClick={() => scrollToSection('testimonials')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+//             <button
+//               onClick={() => scrollToSection("testimonials")}
+//               className="block text-foreground hover:text-primary transition-colors w-full text-left"
+//             >
 //               Testimonials
 //             </button>
-//             <button onClick={() => scrollToSection('contact')} className="block text-foreground hover:text-primary transition-colors w-full text-left">
+//             <button
+//               onClick={() => scrollToSection("contact")}
+//               className="block text-foreground hover:text-primary transition-colors w-full text-left"
+//             >
 //               Contact
 //             </button>
-//             <Button onClick={() => scrollToSection('contact')} size="sm" className="w-full bg-primary hover:bg-primary/90">
+//             <Button
+//               onClick={() => scrollToSection("contact")}
+//               size="sm"
+//               className="w-full bg-primary hover:bg-primary/90"
+//             >
 //               <Phone className="w-4 h-4 mr-2" />
 //               Get Free Consultation
 //             </Button>
@@ -100,107 +223,101 @@ const Header = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 w-full z-50 bg-background/95 md:backdrop-blur-sm border-b border-border"
-      style={{
-        transform: "translateZ(0)",
-        willChange: "transform",
-        overflowX: "hidden",
-      }}
+      className="fixed top-0 left-0 right-0 z-50 bg-background/95 md:backdrop-blur-sm border-b border-border"
+      style={{ transform: "translateZ(0)", willChange: "transform" }}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        <div className="flex items-center justify-between w-full">
-          {/* Logo Section */}
-          <div className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-primary">SingleDebt</div>
-            <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
-              Mumbai
-            </span>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <button
-              onClick={() => scrollToSection("services")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Services
-            </button>
-            <button
-              onClick={() => scrollToSection("how-it-works")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection("testimonials")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Testimonials
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="text-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </button>
-            <Button
-              onClick={() => scrollToSection("contact")}
-              size="sm"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <Phone className="w-4 h-4 mr-2" />
-              Get Free Consultation
-            </Button>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden text-foreground p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-            aria-label="Toggle Menu"
-          >
-            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+      <nav className="flex items-center justify-between max-w-[100vw] px-4 py-4 mx-auto">
+        {/* Logo + City Tag */}
+        <div className="flex items-center space-x-2">
+          <div className="text-2xl font-bold text-primary">SingleDebt</div>
+          <span className="text-xs bg-primary text-primary-foreground px-2 py-1 rounded">
+            Mumbai
+          </span>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-4 animate-fade-in">
-            <button
-              onClick={() => scrollToSection("services")}
-              className="block text-foreground hover:text-primary transition-colors w-full text-left"
-            >
-              Services
-            </button>
-            <button
-              onClick={() => scrollToSection("how-it-works")}
-              className="block text-foreground hover:text-primary transition-colors w-full text-left"
-            >
-              How It Works
-            </button>
-            <button
-              onClick={() => scrollToSection("testimonials")}
-              className="block text-foreground hover:text-primary transition-colors w-full text-left"
-            >
-              Testimonials
-            </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="block text-foreground hover:text-primary transition-colors w-full text-left"
-            >
-              Contact
-            </button>
-            <Button
-              onClick={() => scrollToSection("contact")}
-              size="sm"
-              className="w-full bg-primary hover:bg-primary/90"
-            >
-              <Phone className="w-4 h-4 mr-2" />
-              Get Free Consultation
-            </Button>
-          </div>
-        )}
+        {/* Desktop Nav */}
+        <div className="hidden md:flex items-center space-x-8">
+          <button
+            onClick={() => scrollToSection("services")}
+            className="text-foreground hover:text-primary transition-colors"
+          >
+            Services
+          </button>
+          <button
+            onClick={() => scrollToSection("how-it-works")}
+            className="text-foreground hover:text-primary transition-colors"
+          >
+            How It Works
+          </button>
+          <button
+            onClick={() => scrollToSection("testimonials")}
+            className="text-foreground hover:text-primary transition-colors"
+          >
+            Testimonials
+          </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="text-foreground hover:text-primary transition-colors"
+          >
+            Contact
+          </button>
+          <Button
+            onClick={() => scrollToSection("contact")}
+            size="sm"
+            className="bg-primary hover:bg-primary/90"
+          >
+            <Phone className="w-4 h-4 mr-2" />
+            Get Free Consultation
+          </Button>
+        </div>
+
+        {/* Mobile Menu Icon */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden text-foreground ml-auto pr-1"
+          style={{ marginRight: "2px" }}
+        >
+          {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
+        </button>
       </nav>
+
+      {/* Mobile Dropdown Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden mt-2 pb-4 space-y-4 animate-fade-in px-4">
+          <button
+            onClick={() => scrollToSection("services")}
+            className="block text-foreground hover:text-primary transition-colors w-full text-left"
+          >
+            Services
+          </button>
+          <button
+            onClick={() => scrollToSection("how-it-works")}
+            className="block text-foreground hover:text-primary transition-colors w-full text-left"
+          >
+            How It Works
+          </button>
+          <button
+            onClick={() => scrollToSection("testimonials")}
+            className="block text-foreground hover:text-primary transition-colors w-full text-left"
+          >
+            Testimonials
+          </button>
+          <button
+            onClick={() => scrollToSection("contact")}
+            className="block text-foreground hover:text-primary transition-colors w-full text-left"
+          >
+            Contact
+          </button>
+          <Button
+            onClick={() => scrollToSection("contact")}
+            size="sm"
+            className="w-full bg-primary hover:bg-primary/90"
+          >
+            <Phone className="w-4 h-4 mr-2" />
+            Get Free Consultation
+          </Button>
+        </div>
+      )}
     </header>
   );
 };
