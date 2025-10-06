@@ -51,6 +51,12 @@ const Character = ({ char, index, centerIndex, scrollYProgress }) => {
   );
 };
 
+/**
+ * CardAnimated: animates each feature card with scroll progress
+ * props:
+ * - index, total, scrollYProgressCards
+ * - children: card content
+ */
 const CardAnimated = ({ index, total, scrollYProgressCards, children }) => {
   const centerIndex = Math.floor(total / 2);
   const distance = index - centerIndex;
