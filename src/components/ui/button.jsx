@@ -30,14 +30,7 @@ const buttonVariants = cva(
   },
 );
 
-/**
- * @typedef {Object} ButtonProps
- * @property {string} [variant]
- * @property {string} [size]
- * @property {boolean} [asChild]
- */
 
-/* ButtonProps is described above using JSDoc */
 
 const Button = React.forwardRef(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
