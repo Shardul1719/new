@@ -261,11 +261,279 @@
 // };
 
 // export default About;
+// "use client";
+
+// import React, { useRef } from "react";
+// import ReactLenis from "lenis/react";
+// import { motion, useScroll, useTransform } from "framer-motion";
+// import { Card } from "@/components/ui/card";
+// import {
+//   Shield,
+//   CreditCardIcon,
+//   ChartNoAxesCombinedIcon,
+//   Users,
+// } from "lucide-react";
+
+// const Character = ({ char, index, centerIndex, scrollYProgress, isMobile }) => {
+//   const isSpace = char === " ";
+//   const distanceFromCenter = index - centerIndex;
+
+//   const x = useTransform(scrollYProgress, [0, 0.6], [
+//     distanceFromCenter * (isMobile ? 60 : 160),
+//     0,
+//   ]);
+//   const rotateX = useTransform(scrollYProgress, [0, 0.6], [
+//     distanceFromCenter * (isMobile ? 20 : 60),
+//     0,
+//   ]);
+//   const y = useTransform(scrollYProgress, [0, 0.6], [
+//     Math.abs(distanceFromCenter) * (isMobile ? 10 : 30),
+//     0,
+//   ]);
+
+//   return (
+//     <motion.span
+//       className={`inline-block ${isSpace ? "w-3" : ""}`}
+//       style={{
+//         x,
+//         rotateX,
+//         y,
+//         display: "inline-block",
+//         backfaceVisibility: "hidden",
+//         willChange: "transform",
+//       }}
+//     >
+//       {char}
+//     </motion.span>
+//   );
+// };
+
+// const CardAnimated = ({ index, total, scrollYProgressCards, children, isMobile }) => {
+//   const centerIndex = Math.floor(total / 2);
+//   const distance = index - centerIndex;
+
+//   const x = useTransform(scrollYProgressCards, [0, 0.6], [
+//     distance * (isMobile ? 40 : 120),
+//     0,
+//   ]);
+//   const rotate = useTransform(scrollYProgressCards, [0, 0.6], [
+//     distance * (isMobile ? 6 : 14),
+//     0,
+//   ]);
+//   const y = useTransform(scrollYProgressCards, [0, 0.6], [
+//     Math.abs(distance) * (isMobile ? 8 : 20),
+//     0,
+//   ]);
+//   const scale = useTransform(scrollYProgressCards, [0, 0.6], [0.9, 1]);
+
+//   return (
+//     <motion.div
+//       style={{
+//         x,
+//         rotate,
+//         y,
+//         scale,
+//         transformOrigin: "center",
+//         backfaceVisibility: "hidden",
+//         willChange: "transform",
+//       }}
+//     >
+//       {children}
+//     </motion.div>
+//   );
+// };
+
+// const About = () => {
+//   const isMobile =
+//     typeof window !== "undefined" && window.innerWidth < 768;
+
+//   const features = [
+//     {
+//       icon: CreditCardIcon,
+//       title: "Consolidate Debts",
+//       description:
+//         "Merge all unsecured loans like credit card dues, personal loans, and EMIs into one low-interest monthly repayment plan.",
+//     },
+//     {
+//       icon: Shield,
+//       title: "Harassment Relief",
+//       description:
+//         "Get protection from recovery agents — no more calls, home visits, or legal pressure.",
+//     },
+//     {
+//       icon: ChartNoAxesCombinedIcon,
+//       title: "Rebuild Credit Scores",
+//       description:
+//         "Follow RBI guidelines and rebuild your credit standing while managing debt responsibly.",
+//     },
+//   ];
+
+//   const headingRef = useRef(null);
+//   const cardsRef = useRef(null);
+//   const bottomRef = useRef(null);
+
+//   const { scrollYProgress: headingProgress } = useScroll({
+//     target: headingRef,
+//     offset: ["start 90%", "end 10%"],
+//   });
+
+//   const { scrollYProgress: cardsProgress } = useScroll({
+//     target: cardsRef,
+//     offset: ["start 90%", "end 10%"],
+//   });
+
+//   const headingText = "What is a Debt Management Plan (DMP)?";
+//   const characters = headingText.split("");
+//   const centerIndex = Math.floor(characters.length / 2);
+
+//   return (
+//     <ReactLenis root>
+//       <section id="services" className="py-20 bg-background">
+//         <div className="container mx-auto px-4">
+//           {/* Animated Heading */}
+//           <div ref={headingRef} className="text-center mb-16 space-y-4">
+//             <div
+//               className="mx-auto max-w-5xl"
+//               style={{
+//                 perspective: isMobile ? "400px" : "900px",
+//               }}
+//             >
+//               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+//                 <span className="inline-block">
+//                   {!isMobile
+//                     ? characters.map((char, idx) => (
+//                         <Character
+//                           key={idx}
+//                           char={char}
+//                           index={idx}
+//                           centerIndex={centerIndex}
+//                           scrollYProgress={headingProgress}
+//                           isMobile={isMobile}
+//                         />
+//                       ))
+//                     : headingText}
+//                 </span>
+//               </h2>
+//             </div>
+
+//             <motion.p
+//               className="text-lg text-muted-foreground max-w-3xl mx-auto mt-4"
+//               initial={{ opacity: 0, y: 30, rotateX: 10 }}
+//               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+//               transition={{ duration: 0.8, ease: "easeOut" }}
+//               viewport={{ once: true, amount: 0.3 }}
+//               style={{
+//                 transformStyle: "preserve-3d",
+//                 perspective: 800,
+//               }}
+//             >
+//               A Debt Management Plan (DMP) is a personalized solution to help
+//               you regain control of your finances and achieve debt-free living.
+//             </motion.p>
+//           </div>
+
+//           {/* Animated Cards Grid */}
+//           <div
+//             ref={cardsRef}
+//             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
+//           >
+//             {features.map((feature, index) => (
+//               <CardAnimated
+//                 key={index}
+//                 index={index}
+//                 total={features.length}
+//                 scrollYProgressCards={cardsProgress}
+//                 isMobile={isMobile}
+//               >
+//                 <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 border-border h-full">
+//                   <div className="flex flex-col items-center text-center space-y-4">
+//                     <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center">
+//                       <motion.div
+//                         style={{ transformOrigin: "center" }}
+//                         animate={{
+//                           rotate: [0, 5, -5, 0],
+//                         }}
+//                         transition={{
+//                           repeat: Infinity,
+//                           repeatType: "reverse",
+//                           duration: 6,
+//                           ease: "easeInOut",
+//                         }}
+//                       >
+//                         <feature.icon className="w-8 h-8 text-primary" />
+//                       </motion.div>
+//                     </div>
+//                     <h3 className="text-xl font-semibold text-foreground">
+//                       {feature.title}
+//                     </h3>
+//                     <p className="text-muted-foreground">
+//                       {feature.description}
+//                     </p>
+//                   </div>
+//                 </Card>
+//               </CardAnimated>
+//             ))}
+//           </div>
+
+//           {/* Bottom DID YOU KNOW card */}
+//           <div ref={bottomRef} className="mt-12">
+//             <motion.div
+//               className="w-full"
+//               initial={{ opacity: 0, y: 100, rotateX: 15 }}
+//               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+//               transition={{ duration: 0.8, ease: "easeOut" }}
+//               viewport={{ once: true, amount: 0.3 }}
+//             >
+//               <Card className="bg-accent border-l-4 border-l-primary p-8 shadow-lg rounded-2xl">
+//                 <div className="flex items-start space-x-4">
+//                   <div className="flex-shrink-0">
+//                     <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center shadow-md">
+//                       <Users className="w-6 h-6 text-primary-foreground" />
+//                     </div>
+//                   </div>
+//                   <div>
+//                     <h3 className="text-2xl font-bold text-foreground mb-2">
+//                       Did You Know?
+//                     </h3>
+//                     <p className="text-lg text-foreground">
+//                       <strong className="text-primary">2,300+</strong>{" "}
+//                       Mumbaikars and{" "}
+//                       <strong className="text-primary">50,000+</strong> clients
+//                       across India escaped debt traps with our DMP in 2023 —
+//                       just like Ranganathan Iyer from Andheri, Mumbai.
+//                     </p>
+//                   </div>
+//                 </div>
+
+//                 <p className="text-lg text-foreground mt-6 text-center font-bold">
+//                   Watch his story:{" "}
+//                   <a
+//                     href="https://youtu.be/i1o0xXZhxaM?si=u7NwmyYWc4NuwQg1"
+//                     target="_blank"
+//                     rel="noopener noreferrer"
+//                     className="text-primary hover:underline inline-flex items-center gap-2"
+//                   >
+//                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+//                       <path d="M5 3v18l15-9L5 3z" fill="#E11D2D" />
+//                     </svg>
+//                     Ranganathan Iyer’s Debt-Free Journey
+//                   </a>
+//                 </p>
+//               </Card>
+//             </motion.div>
+//           </div>
+//         </div>
+//       </section>
+//     </ReactLenis>
+//   );
+// };
+
+// export default About;
 "use client";
 
 import React, { useRef } from "react";
 import ReactLenis from "lenis/react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import {
   Shield,
@@ -273,75 +541,6 @@ import {
   ChartNoAxesCombinedIcon,
   Users,
 } from "lucide-react";
-
-const Character = ({ char, index, centerIndex, scrollYProgress, isMobile }) => {
-  const isSpace = char === " ";
-  const distanceFromCenter = index - centerIndex;
-
-  const x = useTransform(scrollYProgress, [0, 0.6], [
-    distanceFromCenter * (isMobile ? 60 : 160),
-    0,
-  ]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.6], [
-    distanceFromCenter * (isMobile ? 20 : 60),
-    0,
-  ]);
-  const y = useTransform(scrollYProgress, [0, 0.6], [
-    Math.abs(distanceFromCenter) * (isMobile ? 10 : 30),
-    0,
-  ]);
-
-  return (
-    <motion.span
-      className={`inline-block ${isSpace ? "w-3" : ""}`}
-      style={{
-        x,
-        rotateX,
-        y,
-        display: "inline-block",
-        backfaceVisibility: "hidden",
-        willChange: "transform",
-      }}
-    >
-      {char}
-    </motion.span>
-  );
-};
-
-const CardAnimated = ({ index, total, scrollYProgressCards, children, isMobile }) => {
-  const centerIndex = Math.floor(total / 2);
-  const distance = index - centerIndex;
-
-  const x = useTransform(scrollYProgressCards, [0, 0.6], [
-    distance * (isMobile ? 40 : 120),
-    0,
-  ]);
-  const rotate = useTransform(scrollYProgressCards, [0, 0.6], [
-    distance * (isMobile ? 6 : 14),
-    0,
-  ]);
-  const y = useTransform(scrollYProgressCards, [0, 0.6], [
-    Math.abs(distance) * (isMobile ? 8 : 20),
-    0,
-  ]);
-  const scale = useTransform(scrollYProgressCards, [0, 0.6], [0.9, 1]);
-
-  return (
-    <motion.div
-      style={{
-        x,
-        rotate,
-        y,
-        scale,
-        transformOrigin: "center",
-        backfaceVisibility: "hidden",
-        willChange: "transform",
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-};
 
 const About = () => {
   const isMobile =
@@ -368,64 +567,47 @@ const About = () => {
     },
   ];
 
+  // ✅ Refs for one-time animations
   const headingRef = useRef(null);
   const cardsRef = useRef(null);
   const bottomRef = useRef(null);
 
-  const { scrollYProgress: headingProgress } = useScroll({
-    target: headingRef,
-    offset: ["start 90%", "end 10%"],
-  });
-
-  const { scrollYProgress: cardsProgress } = useScroll({
-    target: cardsRef,
-    offset: ["start 90%", "end 10%"],
-  });
+  const headingInView = useInView(headingRef, { once: true, amount: 0.3 });
+  const cardsInView = useInView(cardsRef, { once: true, amount: 0.3 });
+  const bottomInView = useInView(bottomRef, { once: true, amount: 0.3 });
 
   const headingText = "What is a Debt Management Plan (DMP)?";
-  const characters = headingText.split("");
-  const centerIndex = Math.floor(characters.length / 2);
 
   return (
     <ReactLenis root>
       <section id="services" className="py-20 bg-background">
         <div className="container mx-auto px-4">
           {/* Animated Heading */}
-          <div ref={headingRef} className="text-center mb-16 space-y-4">
-            <div
-              className="mx-auto max-w-5xl"
-              style={{
-                perspective: isMobile ? "400px" : "900px",
-              }}
+          <div
+            ref={headingRef}
+            className="text-center mb-16 space-y-4"
+            style={{
+              perspective: isMobile ? "400px" : "900px",
+            }}
+          >
+            <motion.h2
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight"
+              initial={{ opacity: 0, y: 40, rotateX: 10 }}
+              animate={
+                headingInView
+                  ? { opacity: 1, y: 0, rotateX: 0 }
+                  : { opacity: 0, y: 40, rotateX: 10 }
+              }
+              transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                <span className="inline-block">
-                  {!isMobile
-                    ? characters.map((char, idx) => (
-                        <Character
-                          key={idx}
-                          char={char}
-                          index={idx}
-                          centerIndex={centerIndex}
-                          scrollYProgress={headingProgress}
-                          isMobile={isMobile}
-                        />
-                      ))
-                    : headingText}
-                </span>
-              </h2>
-            </div>
+              {headingText}
+            </motion.h2>
 
             <motion.p
               className="text-lg text-muted-foreground max-w-3xl mx-auto mt-4"
-              initial={{ opacity: 0, y: 30, rotateX: 10 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true, amount: 0.3 }}
-              style={{
-                transformStyle: "preserve-3d",
-                perspective: 800,
-              }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={headingInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             >
               A Debt Management Plan (DMP) is a personalized solution to help
               you regain control of your finances and achieve debt-free living.
@@ -438,12 +620,19 @@ const About = () => {
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12"
           >
             {features.map((feature, index) => (
-              <CardAnimated
+              <motion.div
                 key={index}
-                index={index}
-                total={features.length}
-                scrollYProgressCards={cardsProgress}
-                isMobile={isMobile}
+                initial={{ opacity: 0, y: 50, rotateX: 10 }}
+                animate={
+                  cardsInView
+                    ? { opacity: 1, y: 0, rotateX: 0 }
+                    : { opacity: 0, y: 50, rotateX: 10 }
+                }
+                transition={{
+                  duration: 0.6,
+                  ease: "easeOut",
+                  delay: index * 0.2,
+                }}
               >
                 <Card className="p-6 hover:shadow-lg transition-all duration-300 hover:scale-105 border-border h-full">
                   <div className="flex flex-col items-center text-center space-y-4">
@@ -471,7 +660,7 @@ const About = () => {
                     </p>
                   </div>
                 </Card>
-              </CardAnimated>
+              </motion.div>
             ))}
           </div>
 
@@ -480,9 +669,12 @@ const About = () => {
             <motion.div
               className="w-full"
               initial={{ opacity: 0, y: 100, rotateX: 15 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              animate={
+                bottomInView
+                  ? { opacity: 1, y: 0, rotateX: 0 }
+                  : { opacity: 0, y: 100, rotateX: 15 }
+              }
               transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true, amount: 0.3 }}
             >
               <Card className="bg-accent border-l-4 border-l-primary p-8 shadow-lg rounded-2xl">
                 <div className="flex items-start space-x-4">
@@ -499,8 +691,8 @@ const About = () => {
                       <strong className="text-primary">2,300+</strong>{" "}
                       Mumbaikars and{" "}
                       <strong className="text-primary">50,000+</strong> clients
-                      across India escaped debt traps with our DMP in 2023 —
-                      just like Ranganathan Iyer from Andheri, Mumbai.
+                      across India escaped debt traps with our DMP in 2023 — just
+                      like Ranganathan Iyer from Andheri, Mumbai.
                     </p>
                   </div>
                 </div>
