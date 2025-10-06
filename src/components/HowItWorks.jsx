@@ -205,9 +205,7 @@ const StatsSection = () => {
   ];
 
   return (
-    // <section className="w-full bg-[#FF0000] py-16">
-    <section className="w-[105%] bg-[#FF0000] py-16 ml-[-2.5%] sm:w-full sm:ml-0">
-
+    <section className="w-full bg-[#FF0000] py-16">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-center gap-8 max-w-6xl mx-auto text-white">
         {stats.map((stat, index) => (
           <motion.div
